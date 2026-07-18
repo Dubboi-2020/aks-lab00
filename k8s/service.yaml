@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm-agent-svc
+spec:
+  # ClusterIP (not LoadBalancer) -- avoids the Azure Standard Load Balancer
+  # hourly charge. Access via `kubectl port-forward` for local testing.
+  type: ClusterIP
+  selector:
+    app: llm-agent
+  ports:
+    - port: 80
+      targetPort: 8080

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm-agent
+  labels:
+    app: llm-agent
+spec:
+  replicas: 1   
+  selector:
+    matchLabels:
+      app: llm-agent
+  template:
+    metadata:
+      labels:
+        app: llm-agent
+    spec:
+      containers:
+        - name: llm-agent
+          # Replace with your Docker Hub image before applying:
+          image: dubbio/llm-agent:v1
+          ports:
+            - containerPort: 8080
+          env:
+            - name: GROQ_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: llm-secret
+                  key: GROQ_API_KEY
+            - name: LLM_MODEL
+              value: "llama-3.1-8b-instant"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
