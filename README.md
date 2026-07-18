@@ -1,6 +1,6 @@
 # AKS LLM Agent — Learning Project
 
-This project will a base infrastrustrue for future agentic and LLMs. It builds a minimal agentic service deployed on Azure Kubernetes Service (AKS), talking to a
+This project will be a base infrastrustrue for future agentic and LLMs. It builds a minimal agentic service deployed on Azure Kubernetes Service (AKS), talking to a
 **free-tier LLM (Groq)**
 
 ## Architecture
