@@ -93,7 +93,27 @@ def chat():
 
     # single-round tool loop.
     if msg.tool_calls:
-        messages.append(msg.model_dump())
+        # Append a minimal, clean assistant message rather than the full SDK
+        # object dump -- msg.model_dump() includes legacy fields like
+        # function_call: null which Groq's stricter validation rejects
+        # (OpenAI's own API tolerates it, Groq's does not).
+        messages.append(
+            {
+                "role": "assistant",
+                "content": msg.content,
+                "tool_calls": [
+                    {
+                        "id": call.id,
+                        "type": "function",
+                        "function": {
+                            "name": call.function.name,
+                            "arguments": call.function.arguments,
+                        },
+                    }
+                    for call in msg.tool_calls
+                ],
+            }
+        )
         for call in msg.tool_calls:
             args = json.loads(call.function.arguments)
             if call.function.name == "calculator":

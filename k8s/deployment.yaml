@@ -17,7 +17,7 @@ spec:
       containers:
         - name: llm-agent
           # Replace with your Docker Hub image before applying:
-          image: dubbio/llm-agent:v1
+          image: dubbio/llm-agent:v5
           ports:
             - containerPort: 8080
           env:

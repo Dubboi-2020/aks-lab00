@@ -2,7 +2,7 @@
 # Tears down everything so you don't get billed while you're not using it.
 set -euo pipefail
 
-RG=aks-learning-rg
+RG=aks-lab00-rg 
 
 read -p "This will DELETE the entire resource group '$RG' and everything in it. Continue? (y/N) " confirm
 if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then

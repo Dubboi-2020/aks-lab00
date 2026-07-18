@@ -50,7 +50,7 @@ see `infra/aks-create.sh` for flags
 
 ```bash
 cd agent
-docker build -t $DOCKERHUB_USER/llm-agent:v1 .
+docker build --platform linux/amd64 -t $DOCKERHUB_USER/llm-agent:v1 .
 docker login
 docker push $DOCKERHUB_USER/llm-agent:v1
 cd ..
@@ -59,7 +59,7 @@ cd ..
 ### 3. Get cluster credentials
 
 ```bash
-az aks get-credentials --resource-group aks-learning-rg --name aks-learning-cluster
+az aks get-credentials --resource-group aks-lab00-rg  --name  aks-lab00-cluster
 kubectl get nodes
 ```
 
@@ -106,9 +106,9 @@ or, if you want to keep the cluster around for tomorrow without paying for
 compute:
 
 ```bash
-az aks stop --resource-group aks-learning-rg --name aks-learning-cluster
+az aks stop --resource-group aks-lab00-rg  --name aks-lab00-rg 
 # next day:
-az aks start --resource-group aks-learning-rg --name aks-learning-cluster
+az aks start --resource-group aks-lab00-rg  --name  aks-lab00-cluster
 ```
 
 ## What this lab demonstrates 
